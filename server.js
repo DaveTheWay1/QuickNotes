@@ -18,6 +18,9 @@ app.use(require('./config/checkToken'));
 
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/users/login', require('./routes/api/users'));
+const ensureLoggedIn = require('./config/ensureLoggedIn');
+app.use('/api/notes', ensureLoggedIn, require('./routes/api/notes'));
+app.use('/api/notes/create', ensureLoggedIn, require('./routes/api/notes'));
 
 app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
